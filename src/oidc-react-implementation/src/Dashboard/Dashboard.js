@@ -1,8 +1,14 @@
 import { useAuth } from 'oidc-react';
 import { Button, Col, Row } from 'antd';
+import Weather from '../Components/Weather';
+import { render } from '@testing-library/react';
+import { useState } from "react";
 
 export default (Dashboard) => {
   const auth = useAuth();
+  const initialState = false;
+
+  const [loadWeatherData, setLoadWeatherData] = useState(initialState);
 
   const handleLogout = () => {
     auth.userManager.removeUser();
@@ -18,7 +24,7 @@ export default (Dashboard) => {
       </Row>
       <Row>
         <Col span={3}>
-          <Button type="primary">Load Weather Data</Button>
+          <Button type="primary" onClick={() => setLoadWeatherData(!loadWeatherData)}>Load Weather Data</Button>
         </Col>
         <Col span={3}>
           <Button type="primary" danger onClick={() => handleLogout()}>
@@ -26,6 +32,15 @@ export default (Dashboard) => {
           </Button>
         </Col>
       </Row>
+      {loadWeatherData
+        ? render(
+            <Row>
+              <Col span={24}>
+                <Weather />
+              </Col>
+            </Row>
+          )
+        : ''}
     </>
   );
 };
