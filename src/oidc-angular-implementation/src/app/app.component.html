@@ -351,6 +351,45 @@
     <p>
       {{userInfo | json}}
     </p>
+    <button (click)="loadDataFromDemoApi()">Load Weather data from Demo API</button>
+    <table *ngIf="weatherData">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Summary</th>
+          <th>TemperatureC</th>
+          <th>TemperatureF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let weather of weatherData">
+          <td>{{weather.date}}</td>
+          <td>{{weather.summary}}</td>
+          <td>{{weather.temperatureC}}</td>
+          <td>{{weather.temperatureF}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="loadDataFromDemoAngularApi()">Load Weather data from Demo API</button>
+    <table *ngIf="weatherData">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Summary</th>
+          <th>TemperatureC</th>
+          <th>TemperatureF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let weather of weatherDataAngular">
+          <td>{{weather.date}}</td>
+          <td>{{weather.summary}}</td>
+          <td>{{weather.temperatureC}}</td>
+          <td>{{weather.temperatureF}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <div *ngIf="isAuthenticated">
     <button (click)="onLogout()">Logout</button>

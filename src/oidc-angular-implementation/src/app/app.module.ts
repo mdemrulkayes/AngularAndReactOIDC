@@ -3,7 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import {
+  AuthInterceptor,
+  AuthModule,
+  LogLevel,
+} from 'angular-auth-oidc-client';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +21,7 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
         redirectUrl: window.location.origin,
         postLogoutRedirectUri: window.location.origin,
         clientId: 'angularjs',
-        scope: 'openid profile email offline_access',
+        scope: 'openid profile email offline_access demo_angular_api',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
@@ -24,7 +29,9 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
       },
     }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
