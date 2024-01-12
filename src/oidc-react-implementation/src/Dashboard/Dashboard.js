@@ -15,6 +15,11 @@ export default (Dashboard) => {
     auth.signOutRedirect();
   };
 
+  const onClickLoadWeatherData = () => {
+    console.log(loadWeatherData, 'Weather')
+    setLoadWeatherData(!loadWeatherData)
+  }
+
   return (
     <>
       <Row>
@@ -24,7 +29,7 @@ export default (Dashboard) => {
       </Row>
       <Row>
         <Col span={3}>
-          <Button type="primary" onClick={() => setLoadWeatherData(!loadWeatherData)}>Load Weather Data</Button>
+          <Button type="primary" onClick={() => onClickLoadWeatherData()}>Load Weather Data</Button>
         </Col>
         <Col span={3}>
           <Button type="primary" danger onClick={() => handleLogout()}>
@@ -33,14 +38,16 @@ export default (Dashboard) => {
         </Col>
       </Row>
       {loadWeatherData
-        ? render(
+        ? (
             <Row>
               <Col span={24}>
-                <Weather />
+              <Weather loadWeather={loadWeatherData}/>
               </Col>
             </Row>
-          )
-        : ''}
+           )
+        : (
+          <></>
+        )} 
     </>
   );
 };
